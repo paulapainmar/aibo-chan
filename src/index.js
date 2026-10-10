@@ -1,5 +1,6 @@
 import { InteractionType, InteractionResponseType } from "discord-interactions";
 import { verificarPeticion } from "./discord.js";
+import { manejarComando } from "./commands.js";
 
 function json(datos) {
   return new Response(JSON.stringify(datos), {
@@ -24,9 +25,22 @@ export default {
       return json({ type: InteractionResponseType.PONG });
     }
 
+    // Comandos de barra (/start, /stop...)
+    if (interaccion.type === InteractionType.APPLICATION_COMMAND) {
+      return json(await manejarComando(interaccion, env));
+    }
+
+    // Autocompletado de /add: de momento sin sugerencias
+    if (interaccion.type === InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE) {
+      return json({
+        type: InteractionResponseType.APPLICATION_COMMAND_AUTOCOMPLETE_RESULT,
+        data: { choices: [] },
+      });
+    }
+
     return json({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: { content: "Aibo-chan está en construcción." },
+      data: { content: "Interacción no soportada todavía.", flags: 64 },
     });
   },
 
