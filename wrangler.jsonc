@@ -5,6 +5,10 @@
   "compatibility_date": "2026-10-10",
   "triggers": { "crons": ["0 */6 * * *"] },
   "d1_databases": [
-    { "binding": "DB", "database_name": "aibo-chan", "database_id": "PENDIENTE" }
+    {
+      "binding": "DB",
+      "database_name": "aibo-chan",
+      "database_id": "2d0ff37e-0fc2-4f61-8c3f-f4a6c097c272"
+    }
   ]
 }
