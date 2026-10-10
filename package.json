@@ -1,0 +1,25 @@
+{
+  "name": "aibo-chan",
+  "version": "1.0.0",
+  "description": "Free Discord notifier for new anime episodes, running on Cloudflare Workers.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulapainmar/aibo-chan.git"
+  },
+  "keywords": ["discord", "anime", "bot", "cloudflare-workers"],
+  "author": "Paula Painmar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paulapainmar/aibo-chan/issues"
+  },
+  "homepage": "https://github.com/paulapainmar/aibo-chan#readme",
+  "devDependencies": {
+    "wrangler": "^4.149.0"
+  }
+}
