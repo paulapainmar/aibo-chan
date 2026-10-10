@@ -42,7 +42,11 @@ def get_latest_episode(anime):
         "numero": numero,
         "temporada": None,   # AniList no lo da
         "titulo": None,      # AniList no lo da
-        "url": "https://www.crunchyroll.com/es/search?q=" + quote(anime["nombre"]),
+        "url": (
+            f"https://www.crunchyroll.com/es/series/{anime['crunchyroll_id']}"
+            if anime.get("crunchyroll_id")
+            else "https://www.crunchyroll.com/es/search?q=" + quote(anime["nombre"])
+        ),
     }
 
 

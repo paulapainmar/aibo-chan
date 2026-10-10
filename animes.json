@@ -1,3 +1,8 @@
 [
-  { "nombre": "One Piece", "anilist_id": 21, "mostrar_temporada": false }
+  {
+    "nombre": "One Piece",
+    "anilist_id": 21,
+    "crunchyroll_id": "XXXXXXXXX",
+    "mostrar_temporada": false
+  }
 ]
