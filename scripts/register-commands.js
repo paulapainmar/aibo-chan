@@ -18,7 +18,7 @@ const CONTEXTS = [0, 1, 2];
 
 const commands = [
   {
-    name: "empezar",
+    name: "start",
     description: "Activa Aibo-chan para tu usuario y muestra la ayuda",
   },
   {
