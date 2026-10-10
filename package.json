@@ -12,7 +12,12 @@
     "type": "git",
     "url": "git+https://github.com/paulapainmar/aibo-chan.git"
   },
-  "keywords": ["discord", "anime", "bot", "cloudflare-workers"],
+  "keywords": [
+    "discord",
+    "anime",
+    "bot",
+    "cloudflare-workers"
+  ],
   "author": "Paula Painmar",
   "license": "MIT",
   "bugs": {
@@ -21,5 +26,8 @@
   "homepage": "https://github.com/paulapainmar/aibo-chan#readme",
   "devDependencies": {
     "wrangler": "^4.149.0"
+  },
+  "dependencies": {
+    "discord-interactions": "^4.4.0"
   }
 }
