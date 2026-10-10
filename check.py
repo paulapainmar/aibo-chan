@@ -48,7 +48,7 @@ def get_latest_episode(anime):
 
 def formatear(anime, ep):
     partes = [f"EP{ep['numero']}"]
-    if ep["temporada"]:
+    if anime.get("mostrar_temporada", True) and ep["temporada"]:
         partes.append(f"TEMP{ep['temporada']}")
     partes.append(ep["titulo"] or anime["nombre"])
     texto = " - ".join(partes)

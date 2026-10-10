@@ -1,3 +1,3 @@
 [
-  { "nombre": "One Piece", "anilist_id": 21 }
+  { "nombre": "One Piece", "anilist_id": 21, "mostrar_temporada": false }
 ]
