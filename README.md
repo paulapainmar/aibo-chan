@@ -2,62 +2,68 @@
 
 [Leer en español](README.es.md)
 
-Free Discord notifier for new anime episodes. Runs on GitHub Actions, costs nothing.
+Free Discord bot that notifies you by direct message when your favourite anime get a new episode. Runs on Cloudflare Workers, costs nothing.
 
-Aibo-chan checks your anime list every 6 hours and sends a message to your Discord channel when a new episode is available.
+> **Status: work in progress.** The Worker is being built. Until it is ready, the previous version (`check.py` + GitHub Actions + webhook) keeps running.
 
-## Example
+## What it does
 
-> ¡Nuevo episodio disponible!
-> [EP1 - TEMP1 - Episode title](https://www.crunchyroll.com/es)
+Each user manages their own anime list with slash commands. Aibo-chan checks AniList every 6 hours and sends a direct message when a new episode is out.
 
-Notification messages are sent in Spanish.
+| Command | Description |
+|---|---|
+| `/empezar` | Activates the bot for your user and shows the help message |
+| `/add` | Adds an anime to follow (with search suggestions as you type) |
+| `/cancel` | Shows your list and lets you pick an anime to stop following |
+| `/stop` | Pauses the bot. Your list is kept |
+
+Notification messages and commands are in Spanish.
 
 ## How it works
 
-1. GitHub Actions runs `check.py` on a schedule.
-2. The script reads your list from `animes.json`.
-3. It compares the latest episode of each anime with `state.json`.
-4. If there is a new one, it sends a message through a Discord webhook.
-5. The workflow saves the updated `state.json` in the repo.
+1. A user installs the app on their Discord account and receives a welcome message.
+2. Commands reach a Cloudflare Worker, which stores users and followed anime in a D1 database.
+3. A scheduled trigger queries AniList once for all followed anime and sends direct messages for new episodes.
 
-## Setup
+## Stack
 
-1. **Fork or clone** this repo. Keep it public so GitHub Actions minutes are unlimited.
-2. **Create a Discord webhook**: Channel settings > Integrations > Webhooks > New webhook. Copy the URL.
-3. **Add the secret**: repo Settings > Secrets and variables > Actions > New repository secret.
-   - Name: `DISCORD_WEBHOOK`
-   - Value: your webhook URL
-4. **Edit `animes.json`** with your anime list.
-5. **Test it**: Actions tab > "Check episodes" > Run workflow.
+- Cloudflare Workers (JavaScript) and D1
+- Discord interactions over HTTP (no always-on process)
+- AniList GraphQL API as the episode source
 
-## Adding an anime
+## Self-hosting
 
-Add a new entry to `animes.json`:
+Requirements: Node.js LTS, a free Cloudflare account and a Discord application.
 
-```json
-[
-  { "nombre": "One Piece", "anilist_id": 21 }
-]
-```
+1. Clone the repo and run `npm install`.
+2. Create the database: `npx wrangler d1 create aibo-chan` and put its ID in `wrangler.jsonc`.
+3. Create the tables: `npx wrangler d1 execute aibo-chan --remote --file=schema.sql`.
+4. Create a Discord application, enable **User Install** and **Guild Install**.
+5. Store the secrets with `npx wrangler secret put <NAME>`:
+   - `DISCORD_TOKEN`
+   - `DISCORD_PUBLIC_KEY`
+   - `DISCORD_APP_ID`
+6. Register the commands and deploy with `npm run deploy` *(scripts coming soon)*.
+7. Set the **Interactions Endpoint URL** of your Discord application to your Worker URL.
 
-`anilist_id` is the number in the anime's AniList URL (`anilist.co/anime/21`).
-
-## Configuration
-
-- **Frequency**: change the `cron` line in `.github/workflows/check.yml`. Default is every 6 hours (`0 */6 * * *`).
-- **Language and region**: messages are in Spanish and links point to Crunchyroll Spain.
+Never commit tokens or keys. `.dev.vars` and `.env` are git-ignored.
 
 ## Limitations
 
-- No chat commands: the list is edited in `animes.json`.
-- GitHub disables scheduled workflows after 60 days without repo activity. The automatic `state.json` commits usually prevent this.
-- Episode data currently comes from AniList, so season, episode title and direct episode link are not available yet.
+- The free Cloudflare plan allows 50 external calls per Worker run, so one run can only message a limited number of users. Fine for a small group.
+- Episode data comes from AniList: no season, episode title or direct episode link yet.
+- Crunchyroll blocks automated access from servers, so it cannot be used as a source.
 
 ## Roadmap
 
-- [ ] Crunchyroll Spain as data source (season, title, direct link)
-- [ ] Commands to add and remove anime (Cloudflare Workers)
+- [x] Worker project, D1 database and schema
+- [ ] Discord application and request verification
+- [ ] `/empezar` and `/stop`
+- [ ] `/add` with autocomplete and `/cancel` with a menu
+- [ ] Scheduled check and direct messages
+- [ ] Welcome message on install
+- [ ] Remove the legacy Python version
+- [ ] Link to the Crunchyroll series page *(to be explored)*
 
 ## License
 
