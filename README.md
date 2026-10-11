@@ -4,7 +4,7 @@
 
 Free Discord bot that notifies you by direct message when your favourite anime get a new episode. Runs on Cloudflare Workers, costs nothing.
 
-> **Status: work in progress.** The Worker is being built. Until it is ready, the previous version (`check.py` + GitHub Actions + webhook) keeps running.
+> **Status: work in progress.** The bot is being built; scheduled notifications are not active yet.
 
 ## What it does
 
@@ -62,7 +62,7 @@ Never commit tokens or keys. `.dev.vars` and `.env` are git-ignored.
 - [ ] `/add` with autocomplete and `/cancel` with a menu
 - [ ] Scheduled check and direct messages
 - [ ] Welcome message on install
-- [ ] Remove the legacy Python version
+- [x] Remove the legacy Python version
 - [ ] Link to the Crunchyroll series page *(to be explored)*
 
 ## License
