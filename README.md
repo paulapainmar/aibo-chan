@@ -1,7 +1,5 @@
 # Aibo-chan
 
-[Leer en español](README.es.md)
-
 Free Discord bot that notifies you by direct message when your favourite anime get a new episode. Runs on Cloudflare Workers, costs nothing.
 
 > **Status: work in progress.** The bot is being built; scheduled notifications are not active yet.
@@ -12,7 +10,7 @@ Each user manages their own anime list with slash commands. Aibo-chan checks Ani
 
 | Command | Description |
 |---|---|
-| `/empezar` | Activates the bot for your user and shows the help message |
+| `/start` | Activates the bot for your user and shows the help message |
 | `/add` | Adds an anime to follow (with search suggestions as you type) |
 | `/cancel` | Shows your list and lets you pick an anime to stop following |
 | `/stop` | Pauses the bot. Your list is kept |
@@ -58,7 +56,7 @@ Never commit tokens or keys. `.dev.vars` and `.env` are git-ignored.
 
 - [x] Worker project, D1 database and schema
 - [ ] Discord application and request verification
-- [ ] `/empezar` and `/stop`
+- [ ] `/start` and `/stop`
 - [ ] `/add` with autocomplete and `/cancel` with a menu
 - [ ] Scheduled check and direct messages
 - [ ] Welcome message on install

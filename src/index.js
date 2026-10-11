@@ -1,6 +1,6 @@
 import { InteractionType, InteractionResponseType } from "discord-interactions";
 import { verificarPeticion } from "./discord.js";
-import { manejarComando } from "./commands.js";
+import { manejarComando, manejarAutocompletado } from "./commands.js";
 
 function json(datos) {
   return new Response(JSON.stringify(datos), {
@@ -30,12 +30,9 @@ export default {
       return json(await manejarComando(interaccion, env));
     }
 
-    // Autocompletado de /add: de momento sin sugerencias
+    // Autocompletado de /add: sugiere animes de AniList mientras se escribe
     if (interaccion.type === InteractionType.APPLICATION_COMMAND_AUTOCOMPLETE) {
-      return json({
-        type: InteractionResponseType.APPLICATION_COMMAND_AUTOCOMPLETE_RESULT,
-        data: { choices: [] },
-      });
+      return json(await manejarAutocompletado(interaccion));
     }
 
     return json({
