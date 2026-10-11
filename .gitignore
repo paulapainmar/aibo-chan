@@ -8,12 +8,6 @@ npm-debug.log*
 .env
 .env.*
 
-# Python (se podrá borrar cuando retiremos check.py)
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-
 # Sistema y editores
 .DS_Store
 Thumbs.db
